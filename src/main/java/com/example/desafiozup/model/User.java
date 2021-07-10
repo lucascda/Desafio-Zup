@@ -18,22 +18,21 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
+	private Long id;
 	
 	@NotBlank(message = "Nome é obrigatório")
-	String nome;
+	private String nome;
 	
 	@NotBlank(message = "Email é obrigatório")
 	@Email(message = "Email inválido")
-	
-	String email;
+	private String email;
 	
 	@NotBlank(message = "CPF é obrigatório")
 	@CPF(message = "CPF inválido")
-	String cpf;
+	private String cpf;
 	
-	@NotBlank(message = "Data de nascimento é obrigatória")
-	LocalDate dataNascimento;
+	
+	private LocalDate dataNascimento;
 	
 	public User() {
 		
@@ -49,39 +48,28 @@ public class User {
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
 	}
-
+	
+	public Long getId() {
+		return id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getEmail() {
 		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	}	
 
 	public String getCpf() {
 		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-	
+
 	
 	
 }
