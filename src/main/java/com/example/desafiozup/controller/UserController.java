@@ -20,15 +20,16 @@ import com.example.desafiozup.request.CreateUserRequest;
 @RestController
 @RequestMapping(value = "/v1/users")
 public class UserController {
-	
 	@Autowired
 	UserRepository userRepository;
+
 	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<User> create(@RequestBody @Valid CreateUserRequest request){
 		User user = request.toModel();
 		userRepository.save(user);
+		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId())
 				.toUri();
 		
