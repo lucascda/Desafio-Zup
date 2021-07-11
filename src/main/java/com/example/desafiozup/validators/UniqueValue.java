@@ -15,7 +15,7 @@ import javax.validation.Payload;
 @Target({FIELD})
 @Retention(RUNTIME)
 public @interface UniqueValue {
-	String message() default "{com.example.beanvalidation.uniquevalue}";
+	String message() default "O valor do campo deve ser único";
 	Class<?>[] groups() default { };
 	Class<? extends Payload>[] payload() default {};
 	String fieldName();

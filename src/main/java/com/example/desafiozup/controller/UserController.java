@@ -28,13 +28,9 @@ public class UserController {
 	@Transactional
 	public ResponseEntity<User> create(@RequestBody @Valid CreateUserRequest request){
 		User user = request.toModel();
-		userRepository.save(user);
-		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId())
-				.toUri();
-		
-		return ResponseEntity.created(uri).body(user);
-		
+			userRepository.save(user);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();			
+			return ResponseEntity.created(uri).body(user);		
 	}
 	
 }
