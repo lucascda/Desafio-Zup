@@ -1,7 +1,7 @@
 package com.example.desafiozup.controller;
 
 import java.net.URI;
-import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -9,12 +9,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.desafiozup.exceptions.ResourceNotFoundException;
 import com.example.desafiozup.model.User;
 import com.example.desafiozup.repository.ComicRepository;
 import com.example.desafiozup.repository.UserRepository;
@@ -28,22 +30,20 @@ public class UserController {
 
 	@Autowired
 	ComicRepository comicRepository;
-	
+
 	@PostMapping
 	@Transactional
-	public ResponseEntity<User> create(@RequestBody @Valid CreateUserRequest request){
+	public ResponseEntity<User> create(@RequestBody @Valid CreateUserRequest request) {
 		User user = request.toModel();
-			userRepository.save(user);
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();			
-			return ResponseEntity.created(uri).body(user);		
+		userRepository.save(user);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
+		return ResponseEntity.created(uri).body(user);
 	}
-	
-	@GetMapping
-	public ResponseEntity<List<User>> getAll(){
-		List<User> userList = userRepository.findAll();
-		
-		return ResponseEntity.ok().body(userList);
+
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<User> findById(@PathVariable Long id) {
+		Optional<User> user = userRepository.findById(id);
+		return ResponseEntity.ok().body(user.orElseThrow(() -> new ResourceNotFoundException(id)));
+
 	}
-	
-	
 }

@@ -1,11 +1,15 @@
 package com.example.desafiozup.exceptions;
 
+import java.time.Instant;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -33,6 +37,17 @@ public class ValidationErrorHandler {
         return buildValidationErrors(globalErrors,
 				fieldErrors);
     }
+    
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest req){
+    	String error = "Recurso não encontrado";
+    	HttpStatus status = HttpStatus.NOT_FOUND;
+    	StandardError err  = new StandardError(Instant.now(), status.value(), error, e.getMessage(), req.getRequestURI());
+        
+        return ResponseEntity.status(status).body(err);
+    }
+    
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
