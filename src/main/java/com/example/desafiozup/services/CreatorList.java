@@ -3,6 +3,8 @@ package com.example.desafiozup.services;
 import java.util.ArrayList;
 
 public class CreatorList {
+	
+
 	private ArrayList<CreatorSumary> items = new ArrayList<>();
 
 	public CreatorList() {
@@ -20,6 +22,11 @@ public class CreatorList {
 
 	public void setItems(ArrayList<CreatorSumary> items) {
 		this.items = items;
+	}
+
+	@Override
+	public String toString() {
+		return "CreatorList [items=" + items + "]";
 	}
 
 	

@@ -4,23 +4,28 @@ import java.util.ArrayList;
 
 public class ComicDataContainer {
 	
-	private ArrayList<Comic> results = new ArrayList<>();
+	private ArrayList<ComicResponse> results = new ArrayList<>();
 	
 	public ComicDataContainer() {
 		
 	}
 
-	public ComicDataContainer(ArrayList<Comic> results) {
+	public ComicDataContainer(ArrayList<ComicResponse> results) {
 		super();
 		this.results = results;
 	}
 
-	public ArrayList<Comic> getResults() {
+	public ArrayList<ComicResponse> getResults() {
 		return results;
 	}
 
-	public void setResults(ArrayList<Comic> results) {
+	public void setResults(ArrayList<ComicResponse> results) {
 		this.results = results;
+	}
+
+	@Override
+	public String toString() {
+		return "ComicDataContainer [results=" + results + "]";
 	}
 	
 	

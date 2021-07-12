@@ -18,6 +18,11 @@ public class ComicPrice {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+
+	@Override
+	public String toString() {
+		return "ComicPrice [price=" + price + "]";
+	}
 	
 	
 }

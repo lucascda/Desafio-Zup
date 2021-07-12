@@ -2,7 +2,7 @@ package com.example.desafiozup.services;
 
 import java.util.ArrayList;
 
-public class Comic {
+public class ComicResponse {
 	
 	private Integer id;
 	private String title;
@@ -11,11 +11,11 @@ public class Comic {
 	private ArrayList<ComicPrice> prices = new ArrayList<>();
 	private CreatorList creators;
 	
-	public Comic() {
+	public ComicResponse() {
 		
 	}
 
-	public Comic(Integer id, String title, String isbn, String description, ArrayList<ComicPrice> prices, CreatorList creators) {
+	public ComicResponse(Integer id, String title, String isbn, String description, ArrayList<ComicPrice> prices, CreatorList creators) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -66,6 +66,12 @@ public class Comic {
 
 	public void setCreators(CreatorList creators) {
 		this.creators = creators;
+	}
+
+	@Override
+	public String toString() {
+		return "ComicResponse [id=" + id + ", title=" + title + ", isbn=" + isbn + ", description=" + description
+				+ ", prices=" + prices + ", creators=" + creators + "]";
 	}
 	
 	

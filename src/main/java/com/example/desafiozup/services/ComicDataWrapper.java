@@ -19,6 +19,11 @@ public class ComicDataWrapper {
 		this.data = data;
 	}
 
+	@Override
+	public String toString() {
+		return "ComicDataWrapper [data=" + data + "]";
+	}
+
 	
 
 	

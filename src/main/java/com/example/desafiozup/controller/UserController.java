@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.desafiozup.model.User;
+import com.example.desafiozup.repository.ComicRepository;
 import com.example.desafiozup.repository.UserRepository;
 import com.example.desafiozup.request.CreateUserRequest;
 
@@ -23,6 +24,8 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	ComicRepository comicRepository;
 	
 	@PostMapping
 	@Transactional
