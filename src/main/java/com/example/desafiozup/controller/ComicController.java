@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.desafiozup.model.Comic;
+import com.example.desafiozup.model.User;
 import com.example.desafiozup.repository.ComicRepository;
+import com.example.desafiozup.repository.UserRepository;
 import com.example.desafiozup.services.ComicDataWrapper;
 import com.example.desafiozup.services.ComicResponse;
 import com.example.desafiozup.services.CreatorSumary;
@@ -32,36 +35,48 @@ public class ComicController {
 	@Autowired
 	private ComicRepository comicRepository;
 	
-	@PostMapping(value = "/{ComicId}")
+	@Autowired
+	private UserRepository userRepository;
+	
+	@PostMapping(value = "/{ComicId}/{UserId}")
 	@Transactional
-	public ResponseEntity<Comic> create(@PathVariable String ComicId){
-		
-		ComicDataWrapper comic = service.searchComic(ComicId);
-		Map<String, Object> map = new HashMap<>();
-		ComicResponse myResponse = comic.getData().getResults().get(0);
-		Comic myComic = new Comic();
-		
-		map.put("comicId", myResponse.getId());
-		map.put("title", myResponse.getTitle());
-		map.put("description", myResponse.getDescription());
-		map.put("isbn",myResponse.getIsbn());
-		map.put("price", myResponse.getPrices().get(0).getPrice());
-		map.put("autores", myResponse.getCreators().getItems());
-		myComic.setComicId((Integer) map.get("comicId"));
-		myComic.setTitulo((String) map.get("title"));
-		myComic.setDescricao((String) map.get("description"));
-		myComic.setIsbn((String) map.get("isbn"));
-		myComic.setPreco((Double) map.get("price"));
-		List<CreatorSumary> autores = (List<CreatorSumary>)map.get("autores");		
-		for(CreatorSumary autor: autores) {
-			myComic.addAutor(autor.getName());			
+	public ResponseEntity<Comic> create(@PathVariable String ComicId, @PathVariable Long UserId){
+		try {
+			Optional<User> user = userRepository.findById(UserId);
+			User myUser = user.get();
+			
+			ComicDataWrapper comic = service.searchComic(ComicId);
+			Map<String, Object> map = new HashMap<>();
+			ComicResponse myResponse = comic.getData().getResults().get(0);
+			Comic myComic = new Comic();
+			
+			map.put("comicId", myResponse.getId());
+			map.put("title", myResponse.getTitle());
+			map.put("description", myResponse.getDescription());
+			map.put("isbn",myResponse.getIsbn());
+			map.put("price", myResponse.getPrices().get(0).getPrice());
+			map.put("autores", myResponse.getCreators().getItems());
+			myComic.setComicId((Integer) map.get("comicId"));
+			myComic.setTitulo((String) map.get("title"));
+			myComic.setDescricao((String) map.get("description"));
+			myComic.setIsbn((String) map.get("isbn"));
+			myComic.setPreco((Double) map.get("price"));
+			List<CreatorSumary> autores = (List<CreatorSumary>)map.get("autores");		
+			for(CreatorSumary autor: autores) {
+				myComic.addAutor(autor.getName());			
 		}
-				
-		comicRepository.save(myComic);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(myComic.getId()).toUri();
-		return ResponseEntity.created(uri).body(myComic);
-	}
-	
-	
 
+			comicRepository.save(myComic);
+			myUser.addComic(myComic);
+			userRepository.save(myUser);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(myComic.getId()).toUri();
+			return ResponseEntity.created(uri).body(myComic);	
+				
+	}
+		catch(Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	
+}
+	
 }

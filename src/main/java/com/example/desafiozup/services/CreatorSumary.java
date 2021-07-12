@@ -1,9 +1,5 @@
 package com.example.desafiozup.services;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-
-
 public class CreatorSumary {
 		
 	private String name;
@@ -25,10 +21,7 @@ public class CreatorSumary {
 		this.name = name;
 	}
 
-	@Override
-	public String toString() {
-		return "CreatorSumary [name=" + name + "]";
-	}
+	
 	
 	
 }

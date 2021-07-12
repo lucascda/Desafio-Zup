@@ -1,11 +1,15 @@
 package com.example.desafiozup.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -31,8 +35,11 @@ public class User {
 	@CPF(message = "CPF inválido")
 	private String cpf;
 	
-	
 	private LocalDate dataNascimento;
+	
+	@ManyToMany
+	private List<Comic> comics = new ArrayList<>();
+	
 	
 	public User() {
 		
@@ -69,7 +76,21 @@ public class User {
 		return dataNascimento;
 	}
 
+	public List<Comic> getComics() {
+		return comics;
+	}
+	
+	public void addComic(Comic comic) {
+		this.comics.add(comic);
+		
+	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	
 	
 	
 }
