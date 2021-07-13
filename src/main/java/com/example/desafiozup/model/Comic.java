@@ -1,5 +1,7 @@
 package com.example.desafiozup.model;
 
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -27,12 +28,16 @@ public class Comic {
 	@Column(length = 1000)
 	private String descricao;
 	private Double preco;
+	private ArrayList<String> autores = new ArrayList<>();
 	
 	@ManyToMany(mappedBy = "comics")
 	@JsonIgnore
 	private List<User> users = new ArrayList<>();
+	
+	private String diaDesconto;
+	private Boolean descontoAtivo;
 			
-	private ArrayList<String> autores = new ArrayList<>();
+	
 	
 	public Comic() {
 		
@@ -120,10 +125,98 @@ public class Comic {
 		this.autores.add(autor);
 	}
 	
+    public String getDiaDesconto() {
+		return diaDesconto;
+	}
+   
+    public void setDiaDesconto(String diaDesconto) {
+		this.diaDesconto = diaDesconto;
+	}
+
+	public Boolean getDescontoAtivo() {
+		return descontoAtivo;
+	}
 	
 
+	public void setDescontoAtivo(Boolean descontoAtivo) {
+		this.descontoAtivo = descontoAtivo;
+	}
 
-    @Override
+	
+	public Integer parseIsbnToDayValue() {
+		String isbn = this.isbn;
+		char lastNum = isbn.charAt(isbn.length() - 1);
+		System.out.println(lastNum);
+		Integer dia = null;
+		switch (lastNum) {
+		case '0':
+		case '1':
+			dia = 1;
+			break;
+		case '2':
+		case '3':
+			dia = 2;
+			break;
+		case '4':
+		case '5':
+			dia = 3;
+			break;
+		case '6':
+		case '7':
+			dia = 4;
+			break;
+		case '8':
+		case '9':
+			dia = 5;
+			break;
+		}
+		System.out.println(dia);
+		return dia;
+	}
+	
+	public String parseIsbnToDay() {
+		String isbn = this.isbn;
+		char lastNum = isbn.charAt(isbn.length() - 1);
+		String dia = "";
+		switch(lastNum) {
+		case '0':
+		case '1':
+			dia = "segunda-feira";
+			break;
+		case '2':
+		case '3':
+			dia = "terça-feira";
+			break;
+		case '4':
+		case '5':
+			dia = "quarta-feira";
+			break;
+		case '6':
+		case '7':
+			dia = "quinta-feira";
+			break;
+		case '8':
+		case '9':
+			dia = "sexta-feira";
+			break;
+		}
+		System.out.println(dia);
+		return dia;
+	}
+	
+	public Boolean criaDescontoAtivo() {
+		Instant horario = Instant.now();
+		Integer myDay =  horario.atZone(ZoneId.systemDefault()).getDayOfWeek().getValue();
+		Integer dia = parseIsbnToDayValue();
+		if(myDay == dia) {
+			return Boolean.TRUE;
+		}
+		else {
+			return Boolean.FALSE;
+		}
+	}
+	
+	@Override
 	public String toString() {
 		return "Comic [id=" + id + ", ComicId=" + ComicId + ", titulo=" + titulo + ", isbn=" + isbn + ", descricao="
 				+ descricao + ", preco=" + preco + ", autores=" + autores + "]";

@@ -1,6 +1,7 @@
 package com.example.desafiozup.controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.desafiozup.exceptions.ResourceNotFoundException;
+import com.example.desafiozup.model.Comic;
 import com.example.desafiozup.model.User;
 import com.example.desafiozup.repository.ComicRepository;
 import com.example.desafiozup.repository.UserRepository;
@@ -43,6 +45,16 @@ public class UserController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
 		Optional<User> user = userRepository.findById(id);
+		User myUser = user.get();
+		List<Comic> myComicsList = myUser.getComics();
+		for(Comic comic: myComicsList) {
+			comic.setDiaDesconto(comic.parseIsbnToDay());
+			comic.setDescontoAtivo(comic.criaDescontoAtivo());
+			if(comic.getDescontoAtivo() == Boolean.TRUE) {
+				comic.setPreco(comic.getPreco() - comic.getPreco() * 0.1);
+			}
+			
+		}
 		return ResponseEntity.ok().body(user.orElseThrow(() -> new ResourceNotFoundException(id)));
 
 	}

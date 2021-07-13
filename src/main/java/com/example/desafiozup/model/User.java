@@ -39,6 +39,7 @@ public class User {
 	
 	@ManyToMany
 	private List<Comic> comics = new ArrayList<>();
+
 	
 	
 	public User() {
