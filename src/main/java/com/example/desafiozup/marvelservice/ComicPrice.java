@@ -1,4 +1,4 @@
-package com.example.desafiozup.services;
+package com.example.desafiozup.marvelservice;
 
 public class ComicPrice {
 	private Double price;
@@ -15,9 +15,6 @@ public class ComicPrice {
 		return price;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
 
 	@Override
 	public String toString() {

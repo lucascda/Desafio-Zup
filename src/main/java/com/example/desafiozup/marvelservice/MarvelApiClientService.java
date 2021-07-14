@@ -1,4 +1,4 @@
-package com.example.desafiozup.services;
+package com.example.desafiozup.marvelservice;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;

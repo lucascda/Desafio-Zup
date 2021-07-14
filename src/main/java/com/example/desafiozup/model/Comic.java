@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,9 +37,9 @@ public class Comic {
 	@Column(name = "autores")
 	private List<String> autores = new ArrayList<>();
 	
-	@ManyToMany(mappedBy = "comics")
 	@JsonIgnore
-	private List<User> users = new ArrayList<>();
+	@ManyToOne
+	private User user;
 	
 	private String diaDesconto;
 	private Boolean descontoAtivo;
@@ -50,18 +50,18 @@ public class Comic {
 		
 	}
 	
-	public Comic(Long id, Integer comicId, String titulo, String isbn, String descricao, Double preco,
-			List<String> autores, List<User> users) {
+	public Comic(Integer comicId, String titulo, String isbn, String descricao, Double preco,
+			List<String> autores, User user) {
 		super();
-		this.id = id;
 		this.ComicId = comicId;
 		this.titulo = titulo;
 		this.isbn = isbn;
 		this.descricao = descricao;
 		this.preco = preco;
 		this.autores = autores;
-		this.users=users;
+		this.user=user;
 	}
+
 
 	public Long getId() {
 		return id;
@@ -111,13 +111,11 @@ public class Comic {
 		this.preco = preco;
 	}
 	
-	public List<User> getUsers() {
-		return users;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
+
 
 	public List<String> getAutores() {
 		return autores;

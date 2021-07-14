@@ -1,6 +1,10 @@
-package com.example.desafiozup.services;
+package com.example.desafiozup.marvelservice;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.example.desafiozup.model.Comic;
+import com.example.desafiozup.model.User;
 
 public class ComicResponse {
 	
@@ -8,7 +12,7 @@ public class ComicResponse {
 	private String title;
 	private String isbn;
 	private String description;
-	private ArrayList<ComicPrice> prices = new ArrayList<>();
+	private List<ComicPrice> prices;
 	private CreatorList creators;
 	
 	public ComicResponse() {
@@ -25,34 +29,29 @@ public class ComicResponse {
 		this.creators = creators;
 	}
 
+	public Comic toModel(User user) {
+		return new Comic(id, title, isbn, description, prices.get(0).getPrice(), creators.getAuthorsName(), user);
+	}
+	
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 	public String getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
+
 	public String getIsbn() {
 		return isbn;
 	}
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
+
 	
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public ArrayList<ComicPrice> getPrices() {
+	
+	public List<ComicPrice> getPrices() {
 		return prices;
 	}
 
@@ -60,13 +59,7 @@ public class ComicResponse {
 		return creators;
 	}
 
-	public void setPrices(ArrayList<ComicPrice> prices) {
-		this.prices = prices;
-	}
 
-	public void setCreators(CreatorList creators) {
-		this.creators = creators;
-	}
 
 	@Override
 	public String toString() {

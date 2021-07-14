@@ -1,4 +1,4 @@
-package com.example.desafiozup.services;
+package com.example.desafiozup.marvelservice;
 
 public class CreatorSumary {
 		
@@ -17,11 +17,7 @@ public class CreatorSumary {
 		return this.name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
-	
 	
 	
 }

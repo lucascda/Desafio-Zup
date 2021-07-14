@@ -27,11 +27,9 @@ import com.example.desafiozup.request.CreateUserRequest;
 @RestController
 @RequestMapping(value = "/v1/users")
 public class UserController {
+	
 	@Autowired
-	UserRepository userRepository;
-
-	@Autowired
-	ComicRepository comicRepository;
+	private UserRepository userRepository;
 
 	@PostMapping
 	@Transactional

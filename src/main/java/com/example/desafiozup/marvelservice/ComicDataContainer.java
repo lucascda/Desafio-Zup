@@ -1,4 +1,4 @@
-package com.example.desafiozup.services;
+package com.example.desafiozup.marvelservice;
 
 import java.util.ArrayList;
 
@@ -15,13 +15,11 @@ public class ComicDataContainer {
 		this.results = results;
 	}
 
-	public ArrayList<ComicResponse> getResults() {
-		return results;
+	public ComicResponse getResults() {
+		return results.get(0);
 	}
 
-	public void setResults(ArrayList<ComicResponse> results) {
-		this.results = results;
-	}
+	
 
 	@Override
 	public String toString() {

@@ -37,7 +37,7 @@ public class User {
 	
 	private LocalDate dataNascimento;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "user")
 	private List<Comic> comics = new ArrayList<>();
 
 	
