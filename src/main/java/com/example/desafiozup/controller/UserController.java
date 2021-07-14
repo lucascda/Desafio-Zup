@@ -44,18 +44,21 @@ public class UserController {
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
-		Optional<User> user = userRepository.findById(id);
-		User myUser = user.get();
-		List<Comic> myComicsList = myUser.getComics();
-		for(Comic comic: myComicsList) {
-			comic.setDiaDesconto(comic.parseIsbnToDay());
-			comic.setDescontoAtivo(comic.criaDescontoAtivo());
-			if(comic.getDescontoAtivo() == Boolean.TRUE) {
-				comic.setPreco(comic.getPreco() - comic.getPreco() * 0.1);
+		try {
+			Optional<User> user = userRepository.findById(id);
+			User myUser = user.get();
+			List<Comic> myComicsList = myUser.getComics();
+			for(Comic comic: myComicsList) {
+				comic.setDiaDesconto(comic.parseIsbnToDay());
+				comic.setDescontoAtivo(comic.criaDescontoAtivo());
+				if(comic.getDescontoAtivo() == Boolean.TRUE) {
+					comic.setPreco(comic.getPreco() - comic.getPreco() * 0.1);
+				}
 			}
-			
-		}
-		return ResponseEntity.ok().body(user.orElseThrow(() -> new ResourceNotFoundException(id)));
+				return ResponseEntity.ok().body(myUser);
+		} catch (Exception e) {
+			throw new ResourceNotFoundException(id);
+			}
 
 	}
 }

@@ -38,7 +38,7 @@ public class ValidationErrorHandler {
 				fieldErrors);
     }
     
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+ 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest req){
     	String error = "Recurso não encontrado";

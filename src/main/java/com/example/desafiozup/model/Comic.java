@@ -5,11 +5,14 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -28,7 +31,11 @@ public class Comic {
 	@Column(length = 1000)
 	private String descricao;
 	private Double preco;
-	private ArrayList<String> autores = new ArrayList<>();
+	
+	@ElementCollection(targetClass = String.class)
+	@CollectionTable(name = "tb_autores", joinColumns = @JoinColumn(name = "id"))
+	@Column(name = "autores")
+	private List<String> autores = new ArrayList<>();
 	
 	@ManyToMany(mappedBy = "comics")
 	@JsonIgnore
@@ -44,7 +51,7 @@ public class Comic {
 	}
 	
 	public Comic(Long id, Integer comicId, String titulo, String isbn, String descricao, Double preco,
-			ArrayList<String> autores, List<User> users) {
+			List<String> autores, List<User> users) {
 		super();
 		this.id = id;
 		this.ComicId = comicId;
@@ -112,11 +119,11 @@ public class Comic {
 		this.users = users;
 	}
 
-	public ArrayList<String> getAutores() {
+	public List<String> getAutores() {
 		return autores;
 	}
 
-	public void setAutores(ArrayList<String> autores) {
+	public void setAutores(List<String> autores) {
 		this.autores = autores;
 	}
 	
