@@ -1,10 +1,8 @@
-package com.example.desafiozup.model;
+package com.example.desafiozup.models;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +11,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
@@ -34,6 +31,7 @@ public class User {
 	@NotBlank(message = "CPF é obrigatório")
 	@CPF(message = "CPF inválido")
 	private String cpf;
+	
 	
 	private LocalDate dataNascimento;
 	
@@ -81,17 +79,7 @@ public class User {
 		return comics;
 	}
 	
-	public void addComic(Comic comic) {
-		this.comics.add(comic);
-		
-	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	
 	
 	
 }

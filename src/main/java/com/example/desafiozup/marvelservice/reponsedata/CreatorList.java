@@ -1,4 +1,4 @@
-package com.example.desafiozup.marvelservice;
+package com.example.desafiozup.marvelservice.reponsedata;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
-package com.example.desafiozup.request;
+package com.example.desafiozup.requests;
 
 import java.time.LocalDate;
 
-import com.example.desafiozup.model.User;
+import com.example.desafiozup.models.User;
 import com.example.desafiozup.validators.UniqueValue;
 
 public class CreateUserRequest {

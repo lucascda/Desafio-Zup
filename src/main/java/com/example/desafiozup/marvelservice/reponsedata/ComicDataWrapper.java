@@ -1,4 +1,4 @@
-package com.example.desafiozup.marvelservice;
+package com.example.desafiozup.marvelservice.reponsedata;
 
 public class ComicDataWrapper {
 		

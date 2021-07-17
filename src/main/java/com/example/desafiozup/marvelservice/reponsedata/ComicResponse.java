@@ -1,10 +1,10 @@
-package com.example.desafiozup.marvelservice;
+package com.example.desafiozup.marvelservice.reponsedata;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.desafiozup.model.Comic;
-import com.example.desafiozup.model.User;
+import com.example.desafiozup.models.Comic;
+import com.example.desafiozup.models.User;
 
 public class ComicResponse {
 	

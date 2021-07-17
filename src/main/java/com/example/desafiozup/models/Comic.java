@@ -1,4 +1,4 @@
-package com.example.desafiozup.model;
+package com.example.desafiozup.models;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -41,6 +41,7 @@ public class Comic {
 	@ManyToOne
 	private User user;
 	
+	
 	private String diaDesconto;
 	private Boolean descontoAtivo;
 			
@@ -67,33 +68,22 @@ public class Comic {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Integer getComicId() {
 		return ComicId;
 	}
 
-	public void setComicId(Integer comicId) {
-		ComicId = comicId;
-	}
+
 
 	public String getTitulo() {
 		return titulo;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
 
 	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
 
 	public String getDescricao() {
 		return descricao;
@@ -107,23 +97,20 @@ public class Comic {
 		return preco;
 	}
 
+	
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-	
+
 	public User getUser() {
 		return user;
 	}
-
 
 
 	public List<String> getAutores() {
 		return autores;
 	}
 
-	public void setAutores(List<String> autores) {
-		this.autores = autores;
-	}
 	
 	
 	public  void addAutor(String autor) {

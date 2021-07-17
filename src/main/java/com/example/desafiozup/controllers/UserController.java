@@ -1,4 +1,4 @@
-package com.example.desafiozup.controller;
+package com.example.desafiozup.controllers;
 
 import java.net.URI;
 import java.util.List;
@@ -18,11 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.desafiozup.exceptions.ResourceNotFoundException;
-import com.example.desafiozup.model.Comic;
-import com.example.desafiozup.model.User;
-import com.example.desafiozup.repository.ComicRepository;
-import com.example.desafiozup.repository.UserRepository;
-import com.example.desafiozup.request.CreateUserRequest;
+import com.example.desafiozup.models.Comic;
+import com.example.desafiozup.models.User;
+import com.example.desafiozup.repositories.UserRepository;
+import com.example.desafiozup.requests.CreateUserRequest;
 
 @RestController
 @RequestMapping(value = "/v1/users")
